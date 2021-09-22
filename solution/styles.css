@@ -7,3 +7,6 @@ section{
     display: inline-table;
     justify-content: center;
 }
+ul{
+    list-style: none;
+}
