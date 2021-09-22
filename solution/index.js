@@ -1,11 +1,16 @@
 //add new task to top to the relevant section
 function addButtonClick(){
     const taskInput = this.parentNode.querySelector("input").value
-    const list = this.parentNode.querySelector("ul")
-    const task = document.createElement("li")
-    task.textContent = taskInput
-    task.classList.add("task")
-    list.prepend(task)
+    if (taskInput && taskInput.trim()){
+        const list = this.parentNode.querySelector("ul")
+        const task = document.createElement("li")
+        task.textContent = taskInput
+        task.classList.add("task")
+        list.prepend(task)
+    }
+    else{
+        alert("Can't add an empty task")
+    }
 }
 
 //Event handlers for adding buttons
