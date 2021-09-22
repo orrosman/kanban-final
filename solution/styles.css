@@ -1,0 +1,9 @@
+body{
+    justify-content: space-around;
+    text-align: center;
+}
+
+section{
+    display: inline-table;
+    justify-content: center;
+}
