@@ -53,6 +53,60 @@ function localStorageTasksToDom(){
     }
 }
 
+function handleMultiKeyPress(){
+
+    let keys = {
+        alt: false,
+        one: false,
+        two: false,
+        three: false
+    };
+
+    addEventListener("keydown", (event) => {
+        switch (event.key) {
+            case "Alt":
+                keys.alt = true;
+                break;
+            case "1":
+                keys.one = true;
+                break;
+            case "2":
+                keys.two = true;
+                break;
+            case "3":
+                keys.three = true;
+                break;
+        }
+        if (keys.alt && keys.one) {
+            return "todo"
+        }
+        else if(keys.alt && keys.two){
+            return "in-progress"
+        }
+        else if(keys.alt && keys.three){
+            return "done";
+        }
+
+    });
+
+    addEventListener("keyup", (event) => {
+        switch (event.key) {
+            case "Alt":
+                keys.alt = false;
+                break;
+            case "1":
+                keys.one = false;
+                break;
+            case "2":
+                keys.two = false;
+                break;
+            case "3":
+                keys.three = false;
+                break;
+        }
+    });
+}
+
 //Event handlers for adding buttons
 document.getElementById("submit-add-to-do").addEventListener("click", addButtonClick)
 document.getElementById("submit-add-in-progress").addEventListener("click", addButtonClick)
