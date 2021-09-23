@@ -2,10 +2,11 @@
 function addButtonClick(){
     const taskInput = this.parentNode.querySelector("input").value
     if (taskInput && taskInput.trim()){
+        const category = event.currentTarget.parentNode.id
         const list = this.parentNode.querySelector("ul")
         const task = createTaskElement(taskInput)
         list.prepend(task)
-        saveToLocalStorage(taskInput)
+        saveToLocalStorage(taskInput, category)
     }
     else{
         alert("Can't add an empty task")
@@ -34,12 +35,22 @@ function buildLocalStorage(){
 }
 
 //Saves tasks from DOM to LocalStorage
-function saveToLocalStorage(taskInput) {
+function saveToLocalStorage(taskInput, category) {
     const localStorageData = JSON.parse(localStorage.getItem("tasks"))
-    const appropriateTasksList = localStorageData[event.currentTarget.parentNode.id]
+    const appropriateTasksList = localStorageData[category]
     appropriateTasksList.unshift(taskInput)
-    localStorageData[event.currentTarget.parentNode.id] = appropriateTasksList
+    localStorageData[category] = appropriateTasksList
     localStorage.setItem("tasks", JSON.stringify(localStorageData))
+}
+
+//remove task from older category on LocalStorage
+function removeFromLocalStorage(taskInput, category) {
+    const localStorageData = JSON.parse(localStorage.getItem("tasks"))
+    const appropriateTasksList = localStorageData[category]
+    appropriateTasksList.splice(appropriateTasksList.indexOf(taskInput),1)
+    localStorageData[category] = appropriateTasksList
+    localStorage.setItem("tasks", JSON.stringify(localStorageData))
+    
 }
 
 //Build task elements from tasks saved to LocalStorage
@@ -54,12 +65,18 @@ function localStorageTasksToDom(){
     }
 }
 
-
+//Move task to new category
 function moveTask(category, task) {
     const categoryElement = document.querySelector(`.${category}`)
+    const oldCategory = task.parentElement.parentElement.id
     categoryElement.prepend(task)
+    const newCategory = categoryElement.parentElement.id
+    saveToLocalStorage(task.innerText, newCategory)
+
+    removeFromLocalStorage(task.innerText, oldCategory)
 }
 
+//Detect multiple key presses
 function handleMultiKeyPress(){
 
     let keys = {
