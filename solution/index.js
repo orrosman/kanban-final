@@ -17,6 +17,7 @@ function createTaskElement(taskInput){
     let newTask = document.createElement("li")
     newTask.classList.add("task")
     newTask.innerText = taskInput
+    newTask.addEventListener("mouseenter", handleMultiKeyPress)
     return newTask
 }
 
@@ -53,6 +54,12 @@ function localStorageTasksToDom(){
     }
 }
 
+
+function moveTask(category, task) {
+    const categoryElement = document.querySelector(`.${category}`)
+    categoryElement.prepend(task)
+}
+
 function handleMultiKeyPress(){
 
     let keys = {
@@ -78,13 +85,13 @@ function handleMultiKeyPress(){
                 break;
         }
         if (keys.alt && keys.one) {
-            return "todo"
+            moveTask("to-do-tasks",this)
         }
         else if(keys.alt && keys.two){
-            return "in-progress"
+            moveTask("in-progress-tasks",this)
         }
         else if(keys.alt && keys.three){
-            return "done";
+            moveTask("done-tasks",this)
         }
 
     });
