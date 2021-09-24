@@ -201,8 +201,23 @@ function saveToBin(){
             "Content-Type": "application/json"},
         body: JSON.stringify({tasks})
     }
-    console.log(data);
     fetch("https://json-bins.herokuapp.com/bin/614dbbc41f7bafed863ed88f/",data)
+}
+
+//Load tasks from remote bin
+async function loadFromBin() {
+    const data = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }
+                //Get data from remote bin
+    const tasks = await fetch("https://json-bins.herokuapp.com/bin/614dbbc41f7bafed863ed88f",data)
+                            //convert json file response to object
+                            .then(data => {return data.json()})
+                                //get "tasks" object 
+                                .then(dataObject => {return dataObject.tasks})
 }
 
 //Event handlers for adding buttons
