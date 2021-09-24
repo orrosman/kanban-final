@@ -10,3 +10,7 @@ section{
 ul{
     list-style: none;
 }
+
+.save-load{
+    text-align: right;
+}

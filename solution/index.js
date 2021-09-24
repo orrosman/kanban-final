@@ -179,6 +179,32 @@ function searchTasks() {
     }
 }
 
+//Save tasks to remote bin
+function saveToBin(){
+    const tasksCategories = [document.querySelector(".to-do-tasks"),
+                             document.querySelector(".in-progress-tasks"),
+                             document.querySelector(".done-tasks")]
+    const tasks = {"todo":[], "in-progress":[], "done": []}
+
+    //Iterate over all tasks and save them to an object
+    for(const category of tasksCategories){
+        const categoryId = category.parentElement.id
+        const tasksList = category.querySelectorAll("li")
+        for (const task of tasksList) {
+            tasks[categoryId].push(task.innerText)
+        }
+    }
+
+    const data = {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json"},
+        body: JSON.stringify({tasks})
+    }
+    console.log(data);
+    fetch("https://json-bins.herokuapp.com/bin/614dbbc41f7bafed863ed88f/",data)
+}
+
 //Event handlers for adding buttons
 document.getElementById("submit-add-to-do").addEventListener("click", addButtonClick)
 document.getElementById("submit-add-in-progress").addEventListener("click", addButtonClick)
@@ -187,6 +213,8 @@ document.getElementById("submit-add-done").addEventListener("click", addButtonCl
 //Event handler for search field
 document.getElementById("search").addEventListener("input",searchTasks)
 
+//Event handlers to save and load tasks from remote bin
+document.getElementById("save-button").addEventListener("click", saveToBin)
 //On load functions
 buildLocalStorage()
 localStorageTasksToDom()
