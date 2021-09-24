@@ -154,6 +154,7 @@ function editTask() {
     const currentIndex = getPlaceInLocalStorage(this.innerText, category)
     this.addEventListener("blur",() =>{
         replaceInLocalStorage(this.innerText, category, currentIndex)
+        this.contentEditable = false
     })
 }
 //Event handlers for adding buttons
