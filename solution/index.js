@@ -157,10 +157,35 @@ function editTask() {
         this.contentEditable = false
     })
 }
+
+//Search for tasks on page
+function searchTasks() {
+    const query = document.querySelector("#search").value.toLowerCase()
+    const tasksCategories = [document.querySelector(".to-do-tasks"), 
+                        document.querySelector(".in-progress-tasks"),
+                        document.querySelector(".done-tasks")]
+                        
+    //Iterate over all tasks and compare to search query
+    for (let category of tasksCategories){
+        const tasksList = category.querySelectorAll("li")
+        for (let task of tasksList){
+            if (task.innerText.toLowerCase().indexOf(query) >(-1)){
+                task.style.display = ""
+            }
+            else{
+                task.style.display = "none"
+            }
+        }
+    }
+}
+
 //Event handlers for adding buttons
 document.getElementById("submit-add-to-do").addEventListener("click", addButtonClick)
 document.getElementById("submit-add-in-progress").addEventListener("click", addButtonClick)
 document.getElementById("submit-add-done").addEventListener("click", addButtonClick)
+
+//Event handler for search field
+document.getElementById("search").addEventListener("input",searchTasks)
 
 //On load functions
 buildLocalStorage()
