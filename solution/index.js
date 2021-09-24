@@ -19,6 +19,7 @@ function createTaskElement(taskInput){
     newTask.classList.add("task")
     newTask.innerText = taskInput
     newTask.addEventListener("mouseenter", handleMultiKeyPress)
+    newTask.addEventListener("dblclick",editTask)
     return newTask
 }
 
@@ -53,6 +54,21 @@ function removeFromLocalStorage(taskInput, category) {
     
 }
 
+//Replace old task with a new one on LocalStorage
+function replaceInLocalStorage(newTask, category, taskIndex){
+    const localStorageData = JSON.parse(localStorage.getItem("tasks"))
+    const appropriateTasksList = localStorageData[category]
+    appropriateTasksList.splice(taskIndex, 1, newTask)
+    localStorageData[category] = appropriateTasksList
+    localStorage.setItem("tasks", JSON.stringify(localStorageData))
+}
+
+//Return the position in LocalStorage of a given task
+function getPlaceInLocalStorage(task, category){
+    const localStorageData = JSON.parse(localStorage.getItem("tasks"))
+    const appropriateTasksList = localStorageData[category]
+    return appropriateTasksList.indexOf(task)
+}
 //Build task elements from tasks saved to LocalStorage
 function localStorageTasksToDom(){
     const tasks = JSON.parse(localStorage.getItem("tasks"))
@@ -131,6 +147,15 @@ function handleMultiKeyPress(){
     });
 }
 
+//Let a task be editable and replaces the existing text
+function editTask() {
+    this.contentEditable = true
+    const category = this.parentElement.parentElement.id
+    const currentIndex = getPlaceInLocalStorage(this.innerText, category)
+    this.addEventListener("blur",() =>{
+        replaceInLocalStorage(this.innerText, category, currentIndex)
+    })
+}
 //Event handlers for adding buttons
 document.getElementById("submit-add-to-do").addEventListener("click", addButtonClick)
 document.getElementById("submit-add-in-progress").addEventListener("click", addButtonClick)
