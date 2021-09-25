@@ -218,8 +218,16 @@ async function loadFromBin() {
                             .then(data => {return data.json()})
                                 //get "tasks" object 
                                 .then(dataObject => {return dataObject.tasks})
+    return tasks
 }
 
+// update LocalStorage from remote bin
+async function updateLocalStorageFromBin(){
+    const binTasks = await loadFromBin()
+    if(binTasks != localStorage.tasks){
+        localStorage.setItem("tasks", JSON.stringify(binTasks))
+    }
+}
 //Event handlers for adding buttons
 document.getElementById("submit-add-to-do").addEventListener("click", addButtonClick)
 document.getElementById("submit-add-in-progress").addEventListener("click", addButtonClick)
