@@ -10,6 +10,7 @@
     
 </head>
     <h1 id="page-title">Kanban to-do board</h1>
+
     <div class="save-load">
         <input type="button" id="save-btn" value="save">
         <input type="button" id="load-btn" value="load">
@@ -17,30 +18,35 @@
     <input type="text" id="search" placeholder="Search a task"><br>
 
 
-<body>
-    <section id="todo">To Do:
-    <input type="text" id="add-to-do-task">
-    <button id="submit-add-to-do">Add</button>
-    <ul class="to-do-tasks">
-        
-    </ul>
-    </section>
-    
-    <section id="in-progress">In Progress:
-    <input type="text" id="add-in-progress-task">
-    <button id="submit-add-in-progress">Add</button>
-    <ul class="in-progress-tasks">
+    <body>
+        <div class="board">
+            <section id="todo">
+                <span>To Do:</span>
+                <input type="text" id="add-to-do-task">
+                <button id="submit-add-to-do">Add</button>
+                
+                <ul class="to-do-tasks">
+                    
+                </ul>
+            </section>
+            
+            <section id="in-progress">
+                <span>In Progress:</span>
+                <input type="text" id="add-in-progress-task">
+                <button id="submit-add-in-progress">Add</button>
+                <ul class="in-progress-tasks">
 
-    </ul>
-    </section>
-    
-    <section id="done">Done:
-    <input type="text" id="add-done-task">
-    <button id="submit-add-done">Add</button>
-    <ul class="done-tasks">
+                </ul>
+            </section>
+            
+            <section id="done">
+                <span>Done:</span>
+                <input type="text" id="add-done-task">
+                <button id="submit-add-done">Add</button>
+                <ul class="done-tasks">
 
-    </ul>
-    </section>
-
-</body>
+                </ul>
+            </section>
+        </div> 
+    </body>
 </html>
