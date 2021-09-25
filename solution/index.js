@@ -20,6 +20,12 @@ function createTaskElement(taskInput){
     newTask.innerText = taskInput
     newTask.addEventListener("mouseenter", handleMultiKeyPress)
     newTask.addEventListener("dblclick",editTask)
+
+    //Add event handlers for drag & drop
+    newTask.draggable = true
+    newTask.addEventListener("dragstart", handleDragStart)
+    newTask.addEventListener("dragend", handleDragEnd)
+
     return newTask
 }
 
@@ -237,6 +243,45 @@ async function updateTasksFromBin(){
     }
 }
 
+//Drag & Drop functions
+let dragElement = null; //track current dragging task
+
+function handleDragStart(event) {
+    dragElement = this
+    event.dataTransfer.effectAllowed = "move";
+
+    this.classList.add("draggingElement");  //highlight current dragging task
+}
+
+function handleDragEnd(event) {
+    dragElement = null;
+    this.classList.remove("draggingElement")    //remove highlight from current dragging task
+}
+
+function handleDragEnter(task) {
+    task.preventDefault();  //enable dropping an element into another
+}
+
+function handleDragLeave() {
+    this.classList.remove("over");
+}
+
+function handleDragOver(event) {
+    event.preventDefault()  //enable dropping an element into another
+    event.dataTransfer.dropEffect = "move";
+}
+
+function handleDrop(event) {
+    this.appendChild(dragElement)
+}
+
+//Add event handlers for drag & drop for all lists
+const categories = document.getElementsByTagName("ul")
+for (const category of categories) {
+    category.addEventListener("dragover",handleDragOver)
+    category.addEventListener("drop",handleDrop)
+}
+
 //Event handlers for adding buttons
 document.getElementById("submit-add-to-do").addEventListener("click", addButtonClick)
 document.getElementById("submit-add-in-progress").addEventListener("click", addButtonClick)
@@ -248,6 +293,7 @@ document.getElementById("search").addEventListener("input",searchTasks)
 //Event handlers to save and load tasks from remote bin
 document.getElementById("save-btn").addEventListener("click", saveToBin)
 document.getElementById("load-btn").addEventListener("click", updateTasksFromBin)
+
 //On load functions
 buildLocalStorage()
 localStorageTasksToDom()

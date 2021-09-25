@@ -6,11 +6,21 @@ body{
 section{
     display: inline-table;
     justify-content: center;
+    height: 100%;
 }
 ul{
     list-style: none;
+    height: 10vh;
 }
 
 .save-load{
     text-align: right;
+}
+
+.draggingElement{
+    color: blue;
+}
+
+.over{
+    color: brown;
 }
