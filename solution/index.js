@@ -153,8 +153,14 @@ function editTask() {
     const category = this.parentElement.parentElement.id
     const currentIndex = getPlaceInLocalStorage(this.innerText, category)
     this.addEventListener("blur",() =>{
-        replaceInLocalStorage(this.innerText, category, currentIndex)
-        this.contentEditable = false
+        if (this.innerText == "") {
+            removeFromLocalStorage(this,category)
+            this.remove()
+        }
+        else{
+            replaceInLocalStorage(this.innerText, category, currentIndex)
+            this.contentEditable = false
+        }
     })
 }
 
