@@ -221,13 +221,16 @@ async function loadFromBin() {
     return tasks
 }
 
-// update LocalStorage from remote bin
-async function updateLocalStorageFromBin(){
-    const binTasks = await loadFromBin()
-    if(binTasks != localStorage.tasks){
-        localStorage.setItem("tasks", JSON.stringify(binTasks))
+// update LocalStorage and DOM from remote bin
+async function updateTasksFromBin(){
+    const binTasksObject = await loadFromBin()
+    let binTasksJsonString = JSON.stringify(binTasksObject)
+    if (binTasksJsonString != localStorage.tasks){
+        localStorage.setItem("tasks", binTasksJsonString)
+        localStorageTasksToDom()
     }
 }
+
 //Event handlers for adding buttons
 document.getElementById("submit-add-to-do").addEventListener("click", addButtonClick)
 document.getElementById("submit-add-in-progress").addEventListener("click", addButtonClick)
@@ -237,7 +240,8 @@ document.getElementById("submit-add-done").addEventListener("click", addButtonCl
 document.getElementById("search").addEventListener("input",searchTasks)
 
 //Event handlers to save and load tasks from remote bin
-document.getElementById("save-button").addEventListener("click", saveToBin)
+document.getElementById("save-btn").addEventListener("click", saveToBin)
+document.getElementById("load-btn").addEventListener("click", updateTasksFromBin)
 //On load functions
 buildLocalStorage()
 localStorageTasksToDom()
