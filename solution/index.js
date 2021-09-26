@@ -29,7 +29,7 @@ function createTaskElement(taskInput){
 
     const removeTaskButton = document.createElement("img")
     removeTaskButton.setAttribute("class", "remove-button")
-    removeTaskButton.setAttribute("src","./icons/Remove-Task-Icon.ico")
+    removeTaskButton.setAttribute("src","./assets/Remove-Task-Icon.ico")
     removeTaskButton.addEventListener("click", removeTask)
     newTask.appendChild(removeTaskButton)
 
