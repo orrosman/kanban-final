@@ -26,6 +26,12 @@ function createTaskElement(taskInput){
     newTask.addEventListener("dragstart", handleDragStart)
     newTask.addEventListener("dragend", handleDragEnd)
 
+    const removeTaskButton = document.createElement("img")
+    removeTaskButton.setAttribute("class", "remove-button")
+    removeTaskButton.setAttribute("src","./icons/Remove-Task-Icon.ico")
+    removeTaskButton.addEventListener("click", removeTask)
+    newTask.appendChild(removeTaskButton)
+
     return newTask
 }
 
@@ -296,6 +302,12 @@ function handleLoadClick() {
         boardDiv.removeChild(document.querySelector(".loader"))
     }, 300)
     updateTasksFromBin()
+}
+
+// remove task
+function removeTask() {
+    removeFromLocalStorage(this.parentElement.innerText, this.parentElement.parentElement.parentElement.id);
+    this.parentElement.remove()
 }
 
 //Add event handlers for drag & drop for all lists

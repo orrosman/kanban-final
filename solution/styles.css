@@ -85,3 +85,14 @@ button{
 .over{
     color: brown;
 }
+
+.remove-button{
+    display: flex;
+    float: right;
+    justify-content: center;
+    width: 20px;
+}
+
+.remove-button:hover{
+    cursor: pointer;
+}
