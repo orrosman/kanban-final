@@ -272,19 +272,25 @@ function handleDragEnd(event) {
 
 function handleDragEnter(task) {
     task.preventDefault();  //enable dropping an element into another
+    this.classList.add("over")
+    console.log("enter");
 }
 
 function handleDragLeave() {
+    console.log("leave");
     this.classList.remove("over");
 }
 
 function handleDragOver(event) {
     event.preventDefault()  //enable dropping an element into another
     event.dataTransfer.dropEffect = "move";
+    this.classList.add("over");
 }
 
 function handleDrop(event) {
     this.appendChild(dragElement)
+    this.classList.remove("over");
+
 }
 
 //Create loader indicator element
@@ -316,6 +322,8 @@ const categories = document.getElementsByTagName("ul")
 for (const category of categories) {
     category.addEventListener("dragover",handleDragOver)
     category.addEventListener("drop",handleDrop)
+    category.addEventListener("dragenter",handleDragEnter)
+    category.addEventListener("dragleave",handleDragLeave)
 }
 
 //Event handlers for adding buttons
