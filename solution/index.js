@@ -239,6 +239,11 @@ async function updateTasksFromBin(){
     let binTasksJsonString = JSON.stringify(binTasksObject)
     if (binTasksJsonString != localStorage.tasks){
         localStorage.setItem("tasks", binTasksJsonString)
+        for (const category of categories) {
+            while (category.firstChild) {
+                category.firstChild.remove()
+            }
+        }
         localStorageTasksToDom()
     }
 }
