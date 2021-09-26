@@ -1,12 +1,13 @@
 //add new task to top to the relevant section
 function addButtonClick(){
-    const taskInput = this.parentNode.querySelector("input").value
+    const taskInput = this.parentElement.querySelector("input").value
     if (taskInput && taskInput.trim()){
         const category = event.currentTarget.parentNode.id
         const list = this.parentNode.querySelector("ul")
         const task = createTaskElement(taskInput)
         list.prepend(task)
         saveToLocalStorage(taskInput, category)
+        this.parentElement.querySelector("input").value = ""
     }
     else{
         alert("Can't add an empty task")
