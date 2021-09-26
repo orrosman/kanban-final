@@ -1,12 +1,7 @@
 # Or Rosman Pre-Course Final Project
 
-![example page](.\solution\assets\example-page.png)
+<img src="./solution/assets/example-page.png" width=50% height=50%>
 
-<style type="text/css">
-    img {
-        width: 450px;
-    }
-</style>
 
 ## What the project is about?
 
