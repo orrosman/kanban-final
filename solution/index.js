@@ -231,13 +231,19 @@ async function loadFromBin() {
             "Content-Type": "application/json"
         }
     }
-                //Get data from remote bin
-    const tasks = await fetch("https://json-bins.herokuapp.com/bin/614dbbc41f7bafed863ed88f",data)
-                            //convert json file response to object
-                            .then(data => {return data.json()})
-                                //get "tasks" object 
-                                .then(dataObject => {return dataObject.tasks})
-    return tasks
+    //Get data from remote bin
+    const previousLocalStorage = localStorage.getItem("tasks")
+    const response = await fetch("https://json-bins.herokuapp.com/bin/614dbbc41f7bafed863ed88f", data)
+    if (response.ok){
+        const tasks = await response.json() //convert json file response to object
+            .then(dataObject => { return dataObject.tasks })        //get "tasks" object
+        return tasks
+    }
+    else{
+        alert("Something happened😥, Please try again later...")
+        localStorage.setItem("tasks", previousLocalStorage) // prevent lose of tasks on failure
+        previousLocalStorage = null
+    }
 }
 
 // update LocalStorage and DOM from remote bin
