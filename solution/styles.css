@@ -73,7 +73,7 @@ button{
 }
 
 .loader{
-    content: url("https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif");
+    content: url("./assets/loading-animation.gif");
     width: 70px;
     margin: auto;
     padding-bottom: 1em;
