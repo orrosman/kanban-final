@@ -275,6 +275,24 @@ function handleDrop(event) {
     this.appendChild(dragElement)
 }
 
+//Create loader indicator element
+function loader() {
+    const boardDiv = document.querySelector(".save-load")
+    const loaderElement = document.createElement("div")
+    loaderElement.classList.add("loader")
+    boardDiv.prepend(loaderElement)
+}
+
+function handleLoadClick() {
+    const boardDiv = document.querySelector(".save-load")
+
+    loader(updateTasksFromBin())
+    setTimeout(() => {
+        boardDiv.removeChild(document.querySelector(".loader"))
+    }, 300)
+    updateTasksFromBin()
+}
+
 //Add event handlers for drag & drop for all lists
 const categories = document.getElementsByTagName("ul")
 for (const category of categories) {
@@ -292,7 +310,7 @@ document.getElementById("search").addEventListener("input",searchTasks)
 
 //Event handlers to save and load tasks from remote bin
 document.getElementById("save-btn").addEventListener("click", saveToBin)
-document.getElementById("load-btn").addEventListener("click", updateTasksFromBin)
+document.getElementById("load-btn").addEventListener("click", handleLoadClick)
 
 //On load functions
 buildLocalStorage()

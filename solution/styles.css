@@ -71,6 +71,13 @@ button{
     border-radius: 10%;
 }
 
+.loader{
+    content: url("https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif");
+    width: 70px;
+    margin: auto;
+    padding-bottom: 1em;
+}
+
 .draggingElement{
     color: blue;
 }
