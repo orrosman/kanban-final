@@ -97,3 +97,10 @@ button{
 .remove-button:hover{
     cursor: pointer;
 }
+
+.message{
+    display: flex;
+    flex-wrap: wrap;
+    float: left;
+    margin-right: 10px;
+}

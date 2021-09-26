@@ -221,6 +221,16 @@ function saveToBin(){
         body: JSON.stringify({tasks})
     }
     fetch("https://json-bins.herokuapp.com/bin/614dbbc41f7bafed863ed88f/",data)
+    
+    //Display a message the tasks were saved
+    let saveDiv = document.querySelector(".save-load")
+    let message = document.createElement("div")
+    message.innerText = "Saved to remote bin 😁"
+    message.setAttribute("class", "message")
+    saveDiv.appendChild(message)
+    setTimeout(() => {
+        saveDiv.removeChild(document.querySelector(".message"))
+    }, 2000)
 }
 
 //Load tasks from remote bin
