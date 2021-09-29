@@ -243,10 +243,12 @@ async function loadFromBin() {
     }
     //Get data from remote bin
     const previousLocalStorage = localStorage.getItem("tasks")
+    loader() //add loader element
     const response = await fetch("https://json-bins.herokuapp.com/bin/614dbbc41f7bafed863ed88f", data)
     if (response.ok){
         const tasks = await response.json() //convert json file response to object
-            .then(dataObject => { return dataObject.tasks })        //get "tasks" object
+            .then(dataObject =>  dataObject.tasks)       //get "tasks" object
+            .then(document.querySelector(".save-load").removeChild(document.querySelector(".loader"))) //remove loader element
         return tasks
     }
     else{
@@ -317,16 +319,6 @@ function loader() {
     boardDiv.prepend(loaderElement)
 }
 
-function handleLoadClick() {
-    const boardDiv = document.querySelector(".save-load")
-
-    loader(updateTasksFromBin())
-    setTimeout(() => {
-        boardDiv.removeChild(document.querySelector(".loader"))
-    }, 300)
-    updateTasksFromBin()
-}
-
 // remove task
 function removeTask() {
     removeFromLocalStorage(this.parentElement.innerText, this.parentElement.parentElement.parentElement.id);
@@ -352,7 +344,7 @@ document.getElementById("search").addEventListener("input",searchTasks)
 
 //Event handlers to save and load tasks from remote bin
 document.getElementById("save-btn").addEventListener("click", saveToBin)
-document.getElementById("load-btn").addEventListener("click", handleLoadClick)
+document.getElementById("load-btn").addEventListener("click", updateTasksFromBin)
 
 //On load functions
 buildLocalStorage()
