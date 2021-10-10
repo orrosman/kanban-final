@@ -1,9 +1,9 @@
 html{
-    position:fixed;
     top:0;
     bottom:0;
     left:0;
     right:0;
+    overflow-y: auto;
 }
 
 body{
@@ -103,4 +103,31 @@ button{
     flex-wrap: wrap;
     float: left;
     margin-right: 10px;
+}
+
+@media only screen and (max-width: 800px){
+
+    html{
+        position: relative;
+    }
+
+    body{
+        height: 100%;
+        overflow: auto;
+    }
+
+    .board{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: center;
+    height: 100%;
+    }
+
+    span{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin: auto;
+    }
 }
